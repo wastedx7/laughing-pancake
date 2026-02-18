@@ -1,0 +1,16 @@
+# Ignore executables everywhere
+**/*.exe
+**/*.out
+
+# Ignore object files everywhere
+**/*.o
+**/*.obj
+
+# Ignore build folders
+build/
+bin/
+
+# Debug and temp files
+**/*.log
+**/*.tmp
+**/*.pdb
