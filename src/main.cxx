@@ -1,5 +1,4 @@
-#include <iostream>
-using namespace std;
+#include "app.h"
 
 int main(){
     cout << "hello world";
