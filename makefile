@@ -1,38 +1,28 @@
-# Compiler
 CXX = g++
 CXXFLAGS = -Wall -Wextra -std=c++17 -Iinclude
 
-# Directories
 SRC_DIR = src
-BUILD_DIR = build
+OBJ_DIR = build
+TARGET = $(OBJ_DIR)/app
 
-# Target executable
-TARGET = $(BUILD_DIR)/app
+SRC = $(wildcard $(SRC_DIR)/*.cxx)
 
-# Find all source files (.cxx)
-SRCS = $(wildcard $(SRC_DIR)/*.cxx)
+OBJ = $(patsubst $(SRC_DIR)/%.cxx,$(OBJ_DIR)/%.o,$(SRC))
 
-# Convert src/file.cxx -> build/file.o
-OBJS = $(SRCS:$(SRC_DIR)/%.cxx=$(BUILD_DIR)/%.o)
+all: $(OBJ_DIR) $(TARGET)
 
-# Default target
-all: $(TARGET)
+$(TARGET): $(OBJ)
+	$(CXX) $(OBJ) -o $(TARGET)
 
-# Link object files into executable
-$(TARGET): $(OBJS)
-	@mkdir -p $(BUILD_DIR)
-	$(CXX) $(OBJS) -o $(TARGET)
-
-# Compile source files into object files in build/
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cxx
-	@mkdir -p $(BUILD_DIR)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cxx
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Clean build directory
-clean:
-	rm -rf $(BUILD_DIR)
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
 
-# Rebuild everything
+clean:
+	rm -rf $(OBJ_DIR)
+
 rebuild: clean all
 
 .PHONY: all clean rebuild
