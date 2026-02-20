@@ -1,6 +1,2 @@
-#include "app.h"
+#include "main.h"
 
-int main(){
-    cout << "hello world";
-    return 0;
-}
